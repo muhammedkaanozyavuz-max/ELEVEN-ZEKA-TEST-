@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerçek Zeka Testi</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100vh;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00ffff;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    .question-box {
+      animation: fadeIn 0.4s ease;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .question {
+      font-size: 1.5rem;
+      margin: 25px 0;
+    }
+
+    button {
+      width: 100%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 15px;
+      font-size: 1.1rem;
+      background: #111;
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      border-radius: 10px;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #00ffff;
+      color: black;
+      transform: scale(1.05);
+    }
+
+    .result-card {
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffff;
+      background: #111;
+      animation: pop 0.5s ease;
+      max-width: 90%;
+    }
+
+    .result-card h2 {
+      font-size: 2rem;
+      color: #00ffff;
+    }
+
+    .result-card p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Gerçek Zeka Testi</h1>
+  <div id="quiz"></div>
+
+  <script>
+    const questions = [
+      {
+        text: "Bir siyasetçi cebinden para dağıtıyor. Ne düşünürsün?",
+        options: ["Yine halkı satın alıyor", "Helal olsun, adam hizmet ediyor"]
+      },
+      {
+        text: "Yolsuzluk iddialarına verilen yanıt?",
+        options: ["İftira!", "Belgeleri gösteren FETÖ'cü olur"]
+      },
+      {
+        text: "Enflasyon %70. Sence sebebi ne?",
+        options: ["Dış güçler ve kıskanan Almanya", "Yıllardır yapılan ekonomi deneyleri"]
+      },
+      {
+        text: "Seçim günü yağmur yağıyor. Ne yaparsın?",
+        options: ["Oyumu yine atarım", "Boşver, zaten bir şey değişmez"]
+      },
+      {
+        text: "Sence en büyük lider kim?",
+        options: ["Kendine oy veren halk", "Bütün siyasetçiler birer oyuncu"]
+      },
+      {
+        text: "İcra dairesinden arandın. Ne düşünürsün?",
+        options: ["Ülke uçuyor ama ben düşüyorum", "Borç yiğidin kamyonudur"]
+      },
+      {
+        text: "Trafikte bedava geçiş mi, parti konvoyu mu?",
+        options: ["Konvoy. En azından kornası bedava", "Geçiş yok, çünkü köprü de paralı"]
+      },
+      {
+        text: "Oy vermek ne demek?",
+        options: ["Kimin beni daha iyi kandıracağına karar vermek", "Kimin bana daha az zarar vereceğini seçmek"]
+      },
+      {
+        text: "Siyasetçilerin en iyi yaptığı şey?",
+        options: ["Kandırmak", "Kandırdığını inkar etmek"]
+      },
+      {
+        text: "Sence bu test ne işe yaradı?",
+        options: ["Gerçekleri tekrar hatırlattı", "Biraz güldüm, biraz ağladım"]
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    const quizDiv = document.getElementById("quiz");
+
+    function showQuestion() {
+      if (current >= questions.length) {
+        showResult();
+        return;
+      }
+
+      quizDiv.innerHTML = `
+        <div class="question-box">
+          <div class="question">${questions[current].text}</div>
+          <button onclick="answer(0)">🅰️ ${questions[current].options[0]}</button>
+          <button onclick="answer(1)">🅱️ ${questions[current].options[1]}</button>
+        </div>
+      `;
+    }
+
+    function answer(choice) {
+      score++;
+      current++;
+      showQuestion();
+    }
+
+    function showResult() {
+      let title = "", desc = "", color = "";
+
+      if (score <= 3) {
+        title = "💡 DÂHİSİN!";
+        desc = "Sistemi çözmüşsün ama çok ses çıkarma, fişlenirsin!";
+        color = "#00ffcc";
+      } else if (score <= 6) {
+        title = "😬 AZ ENAYİSİN.";
+        desc = "Gözün açılmış ama hâlâ bir umut besliyorsun.";
+        color = "#ffff66";
+      } else if (score <= 9) {
+        title = "🤡 ENAYİSİN.";
+        desc = "Siyaseti gerçek sananlardansın.";
+        color = "#ff5050";
+      } else {
+        title = "🎖️ BAŞENAYİ!";
+        desc = "Parti bayrağı ile uyuyorsun. Sana diyecek söz yok.";
+        color = "#ff00ff";
+      }
+
+      quizDiv.innerHTML = `
+        <div class="result-card" style="border: 2px solid ${color}; box-shadow: 0 0 20px ${color}">
+          <h2>${title}</h2>
+          <p>${desc}</p>
+          <p style="font-size:0.9rem; margin-top:20px; color:#888">Sonucu paylaş: #GerçekZekaTesti</p>
+        </div>
+      `;
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
